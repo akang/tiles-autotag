@@ -60,6 +60,8 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
+import com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 /**
  * Tests {@link CreateDescriptorMojo}.
@@ -105,7 +107,8 @@ public class CreateDescriptorMojoTest {
         replay(mavenProject, buildContext, scanner);
         mojo.execute();
         InputStream sis = new FileInputStream(new File(temp, "META-INF/template-suite.xml"));
-        XStream xstream = new XStream(new Sun14ReflectionProvider());
+        XStream xstream = new XStream(new SunUnsafeReflectionProvider());
+        xstream.addPermission(AnyTypePermission.ANY);
         TemplateSuite suite = (TemplateSuite) xstream.fromXML(sis);
         sis.close();
         assertEquals("test", suite.getName());
@@ -188,7 +191,7 @@ public class CreateDescriptorMojoTest {
 	private String[] getModels(File sourceDirectory) {
 		File modelDir = new File(sourceDirectory, "org/apache/tiles/autotag/plugin/internal/");
         String[] models = modelDir.list(new FilenameFilter() {
-			
+
 			@Override
 			public boolean accept(File dir, String name) {
 				return name.endsWith("Model.java");

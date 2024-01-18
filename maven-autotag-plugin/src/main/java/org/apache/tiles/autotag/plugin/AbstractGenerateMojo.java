@@ -46,6 +46,8 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
+import com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 /**
  * Abstract class to generate boilerplate code starting from template model classes.
@@ -96,7 +98,7 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
 
 	OutputLocator classesOutputLocator;
 	OutputLocator resourcesOutputLocator;
-	
+
     /** {@inheritDoc} */
     public void execute() throws MojoExecutionException {
         try {
@@ -105,7 +107,8 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         	long lastModified = templateSuite.getLastModified();
         	InputStream stream = templateSuite.getInputStream();
             try {
-	            XStream xstream = new XStream(new Sun14ReflectionProvider());
+	            XStream xstream = new XStream(new SunUnsafeReflectionProvider());
+				xstream.addPermission(AnyTypePermission.ANY);
 	            suite = (TemplateSuite) xstream.fromXML(stream);
             } finally {
 	            stream.close();
@@ -207,15 +210,15 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
     protected abstract String getRuntimeClass();
 
     private final class MavenOutputLocator implements OutputLocator {
-    	
+
     	private File outputDirectory;
     	private long sourceLastModified;
-    	
+
     	private MavenOutputLocator(File outputDirectory, long sourceLastModified) {
     		this.outputDirectory = outputDirectory;
     		this.sourceLastModified = sourceLastModified;
     	}
-    	
+
 		@Override
 		public OutputStream getOutputStream(String resourcePath)
 				throws IOException {
