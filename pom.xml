@@ -24,7 +24,7 @@ under the License.
     <parent>
         <artifactId>tiles-master</artifactId>
         <groupId>org.apache.tiles</groupId>
-        <version>7</version>
+        <version>8</version>
     </parent>
 
     <!-- temporary only while parent pom is snapshot -->
@@ -41,7 +41,7 @@ under the License.
 
     <groupId>org.apache.tiles</groupId>
     <artifactId>tiles-autotag</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4</version>
     <packaging>pom</packaging>
     <name>Autotags</name>
     <description>Automatic generation of tags.</description>
