@@ -24,8 +24,8 @@ package ${packageName};
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
 #if(${clazz.hasBody()})
 import org.apache.tiles.autotag.core.runtime.ModelBody;
@@ -90,7 +90,7 @@ public class ${clazz.tagClassPrefix}Tag extends SimpleTagSupport {
             tag.setParent(getParent());
             tag.doTag();
         }
-        ${requestClass} request = runtime.createRequest();        
+        ${requestClass} request = runtime.createRequest();
 #if(${clazz.hasBody()})
         ModelBody modelBody = runtime.createModelBody();
 #end

@@ -5,8 +5,8 @@ package org.apache.tiles.autotag.jsp.test;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.tiles.autotag.core.runtime.AutotagRuntime;
 
@@ -106,7 +106,7 @@ public class DoStuffNoBodyTag extends SimpleTagSupport {
             tag.setParent(getParent());
             tag.doTag();
         }
-        org.apache.tiles.autotag.jsp.test.Request request = runtime.createRequest();        
+        org.apache.tiles.autotag.jsp.test.Request request = runtime.createRequest();
         model.execute(
             one,
             two,
